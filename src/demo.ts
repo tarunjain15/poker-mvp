@@ -1,4 +1,4 @@
-import { PokerTable, TablePlayer } from './PokerTable';
+import { PokerTableImproved as PokerTable, TablePlayer } from './PokerTableImproved';
 import { Player } from './Player';
 import { Card, Suit, Rank } from './Card';
 import chalk from 'chalk';

@@ -49,10 +49,12 @@ export class PokerTable {
 
     // Draw player boxes
     const boxes = topPlayers.map(tp => this.createPlayerBox(tp));
-    const totalWidth = boxes.join('  ').length;
-    const padding = Math.floor((this.TABLE_WIDTH - totalWidth - 2) / 2);
+    const boxesStr = boxes.join('  ');
+    const totalWidth = this.stripAnsi(boxesStr).length;
+    const padding = Math.max(0, Math.floor((this.TABLE_WIDTH - totalWidth - 2) / 2));
+    const rightPadding = Math.max(0, this.TABLE_WIDTH - padding - totalWidth - 2);
 
-    console.log(chalk.green('║') + ' '.repeat(padding) + boxes.join('  ') + ' '.repeat(this.TABLE_WIDTH - padding - totalWidth - 2) + chalk.green('║'));
+    console.log(chalk.green('║') + ' '.repeat(padding) + boxesStr + ' '.repeat(rightPadding) + chalk.green('║'));
     console.log(chalk.green('║') + ' '.repeat(this.TABLE_WIDTH - 2) + chalk.green('║'));
   }
 
@@ -66,10 +68,12 @@ export class PokerTable {
 
     // Draw player boxes
     const boxes = bottomPlayers.map(tp => this.createPlayerBox(tp));
-    const totalWidth = boxes.join('  ').length;
-    const padding = Math.floor((this.TABLE_WIDTH - totalWidth - 2) / 2);
+    const boxesStr = boxes.join('  ');
+    const totalWidth = this.stripAnsi(boxesStr).length;
+    const padding = Math.max(0, Math.floor((this.TABLE_WIDTH - totalWidth - 2) / 2));
+    const rightPadding = Math.max(0, this.TABLE_WIDTH - padding - totalWidth - 2);
 
-    console.log(chalk.green('║') + ' '.repeat(padding) + boxes.join('  ') + ' '.repeat(this.TABLE_WIDTH - padding - totalWidth - 2) + chalk.green('║'));
+    console.log(chalk.green('║') + ' '.repeat(padding) + boxesStr + ' '.repeat(rightPadding) + chalk.green('║'));
   }
 
   private static drawMiddleSection(pot: number, communityCards: Card[], phase: string, currentBet: number): void {
@@ -101,46 +105,39 @@ export class PokerTable {
   private static createPlayerBox(tp: TablePlayer): string {
     const { player, isDealer, isCurrentTurn, lastAction } = tp;
     
-    // Player name with dealer indicator
-    let nameStr = player.name;
+    // Shortened name (max 7 chars)
+    let name = player.name.substring(0, 7);
     if (player.id === 'human') {
-      nameStr = ColorUtils.humanPlayer(nameStr);
+      name = ColorUtils.humanPlayer(name);
     } else {
-      nameStr = ColorUtils.aiPlayer(nameStr);
+      name = ColorUtils.aiPlayer(name);
     }
     
+    // Add dealer indicator
     if (isDealer) {
-      nameStr = `${nameStr} ${chalk.magenta.bold('[D]')}`;
+      name = `${name}${chalk.magenta.bold('[D]')}`;
     }
     
-    // Status and chips
-    let statusStr = '';
+    // Cards (compact)
+    const cards = player.hand.size() > 0 && player.id === 'human' && !player.folded
+      ? player.hand.getCards().map(c => c.toColorString()).join('')
+      : '🂠🂠';
+    
+    // Chips (shortened)
+    const chips = `$${player.chips}`;
+    
+    // Status (compact)
+    let status = '';
     if (player.folded) {
-      statusStr = ColorUtils.folded('FOLDED');
+      status = chalk.red('F');
     } else if (player.isAllIn) {
-      statusStr = ColorUtils.allIn('ALL-IN');
+      status = chalk.red.bold('A');
     } else if (isCurrentTurn) {
-      statusStr = ColorUtils.currentTurn('← TURN');
-    } else if (lastAction) {
-      statusStr = this.colorAction(lastAction);
+      status = chalk.green.bold('→');
     }
     
-    const chipsStr = ColorUtils.chips(player.chips);
-    
-    // Cards (only show for human player or in showdown)
-    const cardsStr = player.hand.size() > 0 && player.id === 'human' && !player.folded
-      ? player.hand.getCards().map(c => c.toColorString()).join(' ')
-      : '🂠 🂠';
-    
-    // Format box
-    const box = [
-      nameStr,
-      cardsStr,
-      chipsStr,
-      statusStr
-    ].filter(s => s).join(' | ');
-    
-    return box;
+    // Build compact box
+    return `${name}:${cards}:${chips}${status ? ':' + status : ''}`;
   }
 
   private static colorAction(action: string): string {

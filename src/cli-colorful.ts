@@ -2,7 +2,7 @@ import * as readlineSync from 'readline-sync';
 import chalk from 'chalk';
 import { GameSession } from './GameSession';
 import { Player } from './Player';
-import { PokerTable, TablePlayer } from './PokerTable';
+import { PokerTableImproved as PokerTable, TablePlayer } from './PokerTableImproved';
 import { ColorUtils } from './ColorUtils';
 
 class ColorfulPokerCLI {
