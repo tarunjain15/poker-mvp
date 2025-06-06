@@ -2,6 +2,18 @@
 
 A comprehensive Texas Hold'em poker implementation in TypeScript with tournament mode, AI players, and complete game statistics.
 
+## 🚀 Quick Start
+
+```bash
+# Clone and setup
+git clone https://github.com/tarunjain15/poker-mvp.git
+cd poker-mvp
+npm install
+
+# Play the game (recommended mode)
+npm run play:simple
+```
+
 ## Features
 
 ### Core Game Mechanics
@@ -57,73 +69,126 @@ npm run build
 
 ## Usage
 
-### Quick Play Mode
-```bash
-npm run play
-```
-- Play individual hands against 3 AI opponents
-- Start with 1000 chips each
-- Choose to continue or quit after each hand
+### 🎮 Playing the Game
 
-### Tournament Mode
-```bash
-npm run play:tournament
-```
-- Full tournament experience
-- Players are eliminated when they run out of chips
-- Blinds increase every 10 hands
-- Game continues until one player has all chips
-- Comprehensive statistics at the end
-
-### Simple Colorful Mode (Recommended!)
+#### Simple Colorful Mode (⭐ RECOMMENDED)
 ```bash
 npm run play:simple
 ```
 - Clean, smooth gameplay without display glitches
-- Colored cards and clear game state
+- Colored cards (red ♥♦, black ♣♠)
+- Clear game state display
+- Color-coded actions and chips
 - Perfect for actual playing
 
-### Advanced Visual Mode
+#### Tournament Mode
+```bash
+npm run play:tournament
+```
+- Standard tournament experience (no colors)
+- Players are eliminated when chips reach zero
+- Blinds increase every 10 hands
+- Comprehensive statistics at the end
+
+#### Quick Play Mode
+```bash
+npm run play
+```
+- Basic poker hands (no colors)
+- Play individual hands against AI
+- Simple text interface
+
+#### Advanced Table Mode
 ```bash
 npm run play:color
 ```
-- Full poker table visualization (may have display issues on some terminals)
+- Full poker table visualization
+- May have display issues on some terminals
+- Best for demo purposes
 
-### Demo Mode
+### 🧪 Testing & Development
+
+#### Run Unit Tests
 ```bash
-npm run demo
+npm test
 ```
-- See a demo of the table interface
+- Tests core game logic
+- 26 tests for Card, Deck, and HandEvaluator
 
-### Integration Test
+#### Run Integration Test
 ```bash
 npm run test:integration
 ```
-- Run automated poker game for testing
+- Automated game simulation
+- Plays 20 hands with AI decisions
+- Verifies game flow and mechanics
+
+#### View Demo
+```bash
+npm run demo
+```
+- Non-interactive demo of the table interface
+- Shows colored cards and visual elements
+
+#### Build TypeScript
+```bash
+npm run build
+```
+- Compiles TypeScript to JavaScript
+- Required after making changes
+
+#### Development Mode
+```bash
+npm run dev
+```
+- Runs the index file directly with ts-node
+
+### 📋 Complete Script Reference
+
+| Script | Command | Description |
+|--------|---------|-------------|
+| `play:simple` | `npm run play:simple` | **Recommended** - Colorful tournament without glitches |
+| `play:tournament` | `npm run play:tournament` | Standard tournament mode |
+| `play` | `npm run play` | Basic quick play |
+| `play:color` | `npm run play:color` | Advanced table view (may glitch) |
+| `test` | `npm test` | Run unit tests |
+| `test:integration` | `npm run test:integration` | Run automated game test |
+| `demo` | `npm run demo` | View visual demo |
+| `build` | `npm run build` | Compile TypeScript |
+| `dev` | `npm run dev` | Development mode |
+| `start` | `npm start` | Run compiled JavaScript |
 
 ## Project Structure
 
 ```
 poker-mvp/
 ├── src/
-│   ├── Card.ts           # Card representation with suits and ranks
-│   ├── Deck.ts           # Deck management and shuffling
-│   ├── Hand.ts           # Player hand container
-│   ├── HandEvaluator.ts  # Poker hand evaluation logic
-│   ├── Player.ts         # Player state and actions
-│   ├── PokerGame.ts      # Core game flow and rules
-│   ├── GameSession.ts    # Tournament session management
-│   ├── ColorUtils.ts     # Terminal color utilities
-│   ├── PokerTable.ts     # Visual table representation
-│   ├── cli.ts            # Simple CLI interface
-│   ├── cli-improved.ts   # Tournament CLI interface
-│   ├── cli-colorful.ts   # Colorful CLI with table view
-│   └── demo.ts           # Demo of colorful interface
+│   ├── Card.ts                 # Card representation with suits and ranks
+│   ├── Deck.ts                 # Deck management and shuffling
+│   ├── Hand.ts                 # Player hand container
+│   ├── HandEvaluator.ts        # Poker hand evaluation logic
+│   ├── Player.ts               # Player state and actions
+│   ├── PokerGame.ts            # Core game flow and rules
+│   ├── GameSession.ts          # Tournament session management
+│   ├── ColorUtils.ts           # Terminal color utilities
+│   ├── PokerTable.ts           # Visual table representation
+│   ├── PokerTableImproved.ts   # Improved table layout
+│   ├── cli.ts                  # Basic CLI interface
+│   ├── cli-improved.ts         # Tournament CLI interface
+│   ├── cli-colorful.ts         # Colorful CLI with table view
+│   ├── SimpleColorfulCLI.ts    # Simple colorful CLI (recommended)
+│   ├── integration-test.ts     # Automated game testing
+│   ├── demo.ts                 # Visual demo
+│   └── index.ts                # Main exports
 ├── tests/
-│   ├── Card.test.ts
-│   ├── Deck.test.ts
-│   └── HandEvaluator.test.ts
-└── package.json
+│   ├── Card.test.ts            # Card class tests
+│   ├── Deck.test.ts            # Deck class tests
+│   └── HandEvaluator.test.ts   # Hand evaluation tests
+├── dist/                       # Compiled JavaScript (after build)
+├── package.json                # Project configuration
+├── tsconfig.json               # TypeScript configuration
+├── jest.config.js              # Jest test configuration
+└── README.md                   # This file
 ```
 
 ## Game Rules
@@ -181,6 +246,29 @@ npm run dev
 - [ ] Persistent player statistics
 - [ ] Replay system
 - [ ] Advanced betting strategies (pot/no-limit)
+
+## Troubleshooting
+
+### Colors not displaying
+- Make sure your terminal supports ANSI colors
+- Try running in VS Code terminal, iTerm2, or modern Terminal.app
+- Run `node test-color.js` to verify color support
+
+### Game stuck or glitchy display
+- Use `npm run play:simple` instead of `play:color`
+- The simple mode is more reliable across different terminals
+
+### Module not found errors
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
+
+### Permission errors
+```bash
+chmod +x node_modules/.bin/*
+```
 
 ## License
 
