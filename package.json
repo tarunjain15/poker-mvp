@@ -11,7 +11,9 @@
     "play": "ts-node src/cli.ts",
     "play:tournament": "ts-node src/cli-improved.ts",
     "play:color": "ts-node src/cli-colorful.ts",
-    "demo": "ts-node src/demo.ts"
+    "play:simple": "ts-node src/SimpleColorfulCLI.ts",
+    "demo": "ts-node src/demo.ts",
+    "test:integration": "ts-node src/integration-test.ts"
   },
   "keywords": [
     "poker",
