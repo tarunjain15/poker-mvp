@@ -84,7 +84,7 @@ export class HandEvaluator {
     const suitCounts: { [key in Suit]?: number } = {};
     for (const card of cards) {
       suitCounts[card.suit] = (suitCounts[card.suit] || 0) + 1;
-      if (suitCounts[card.suit] >= 5) {
+      if (suitCounts[card.suit]! >= 5) {
         return true;
       }
     }
@@ -97,7 +97,7 @@ export class HandEvaluator {
       if (!suitCounts[card.suit]) {
         suitCounts[card.suit] = [];
       }
-      suitCounts[card.suit].push(card);
+      suitCounts[card.suit]!.push(card);
     }
     
     for (const suit in suitCounts) {

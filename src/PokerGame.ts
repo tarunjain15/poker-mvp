@@ -2,6 +2,7 @@ import { Deck } from './Deck';
 import { Player } from './Player';
 import { Card } from './Card';
 import { HandEvaluator, HandEvaluation } from './HandEvaluator';
+import { HandRank } from './Hand';
 
 export enum GamePhase {
   PreFlop = 'PreFlop',
@@ -187,7 +188,7 @@ export class PokerGame {
     }
     
     if (activePlayers.length === 1) {
-      return { winners: activePlayers, evaluation: { rank: 0, rankName: 'Win by Default', highCards: [] } };
+      return { winners: activePlayers, evaluation: { rank: HandRank.HighCard, rankName: 'Win by Default', highCards: [] } };
     }
     
     // Evaluate each player's hand
