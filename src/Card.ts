@@ -38,6 +38,12 @@ export class Card {
     return `${rankStr}${suitSymbol}`;
   }
 
+  toColorString(): string {
+    // Lazy import to avoid circular dependency
+    const { ColorUtils } = require('./ColorUtils');
+    return ColorUtils.colorCard(this.suit, this.toString());
+  }
+
   getValue(): number {
     return this.rank;
   }

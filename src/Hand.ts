@@ -36,6 +36,10 @@ export class Hand {
     return this.cards.map(card => card.toString()).join(' ');
   }
 
+  toColorString(): string {
+    return this.cards.map(card => card.toColorString()).join(' ');
+  }
+
   size(): number {
     return this.cards.length;
   }

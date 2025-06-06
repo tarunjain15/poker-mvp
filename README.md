@@ -17,6 +17,13 @@ A comprehensive Texas Hold'em poker implementation in TypeScript with tournament
    - Increasing blind levels every 10 hands
    - Comprehensive statistics tracking
    - Final winner declaration
+3. **Colorful Mode** (`npm run play:color`): Enhanced visual experience with:
+   - Full-color terminal display
+   - Visual poker table with player positions
+   - Colored cards (red ♥♦, black ♣♠)
+   - Dealer button indicator
+   - Animated betting actions
+   - Visual winner celebrations
 
 ### AI Players
 - Simple but effective AI opponents with:
@@ -66,6 +73,23 @@ npm run play:tournament
 - Game continues until one player has all chips
 - Comprehensive statistics at the end
 
+### Colorful Mode (Recommended!)
+```bash
+npm run play:color
+```
+- Beautiful colored terminal interface
+- Visual poker table showing all players
+- Red/black colored cards
+- Dealer button indicator [D]
+- Visual betting actions and chip counts
+- Enhanced winner announcements
+
+### Demo Mode
+```bash
+npm run demo
+```
+- See a demo of the colorful interface without playing
+
 ## Project Structure
 
 ```
@@ -78,8 +102,12 @@ poker-mvp/
 │   ├── Player.ts         # Player state and actions
 │   ├── PokerGame.ts      # Core game flow and rules
 │   ├── GameSession.ts    # Tournament session management
+│   ├── ColorUtils.ts     # Terminal color utilities
+│   ├── PokerTable.ts     # Visual table representation
 │   ├── cli.ts            # Simple CLI interface
-│   └── cli-improved.ts   # Tournament CLI interface
+│   ├── cli-improved.ts   # Tournament CLI interface
+│   ├── cli-colorful.ts   # Colorful CLI with table view
+│   └── demo.ts           # Demo of colorful interface
 ├── tests/
 │   ├── Card.test.ts
 │   ├── Deck.test.ts
